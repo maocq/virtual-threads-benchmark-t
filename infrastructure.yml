@@ -54,7 +54,7 @@ Resources:
             cd /home/${User}
             git clone ${UrlReposity} app && chown -R ${User} app
             bash app/sh/install_docker.sh
-            printf "DB_IP=${EC2InstanceLatency.PrivateIp}\nLATENCY_IP=${EC2InstanceDB.PrivateIp}\n" > /tmp/env.list
+            printf "DB_IP=${EC2InstanceDB.PrivateIp}\nLATENCY_IP=${EC2InstanceLatency.PrivateIp}\n" > /tmp/env.list
 
   EC2InstanceLatency:
     Type: AWS::EC2::Instance
