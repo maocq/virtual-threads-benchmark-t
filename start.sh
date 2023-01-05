@@ -45,6 +45,9 @@ start_docker_image $db_ip $UrlReposity "db" $User $Key
 wait_initialized $latency_ip $User $Key
 start_docker_image $latency_ip $UrlReposity "node" $User $Key
 
+## App
+wait_initialized $app_ip $User $Key
+start_docker_image $app_ip $UrlReposity "go-ms" $User $Key
 
 echo "\n\n App"
 echo "ssh -o \"StrictHostKeyChecking no\" -i "$Key" $User@$app_ip" > /dev/tty
