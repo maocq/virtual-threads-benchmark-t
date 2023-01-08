@@ -70,3 +70,58 @@ execute_remote_command() {
 
   return 0
 }
+
+#######################################
+# ARGUMENTS: (url)
+# OUTPUTS:
+# RETURN: 0, Non-zero on error.
+#######################################
+wait_http() {
+  local url=$1
+
+  echo "Waiting for http $url ..." > /dev/tty
+
+	while [[ $(curl -is $url | head -n 1) != *"200"* ]]; do
+	  echo "Waiting for $url, state: $(curl -is $url | head -n 1)" > /dev/tty
+	done
+	sleep 3
+
+  echo "OK! $url" > /dev/tty
+  return 0;
+}
+
+#######################################
+# ARGUMENTS: (instance_ip, origin, destination, user, key)
+# OUTPUTS:
+# RETURN: 0, Non-zero on error.
+#######################################
+upload_file() {
+  local intance_ip=$1
+  local origin=$2
+  local destination=$3
+  local user=$4
+  local key=$5
+
+  echo "Uploading $destination from $origin on $intance_ip" > /dev/tty;
+  local out=$(scp -o "StrictHostKeyChecking no" -i "$key" "$origin" "$user@$intance_ip:$destination")
+  echo "$out" > /dev/tty
+  return 0
+}
+
+#######################################
+# ARGUMENTS: (instance_ip, origin, destination, user, key)
+# OUTPUTS:
+# RETURN: 0, Non-zero on error.
+#######################################
+download_file() {
+  local intance_ip=$1
+  local origin=$2
+  local destination=$3
+  local user=$4
+  local key=$5
+
+  echo "Downloading $origin to $destination on $intance_ip" > /dev/tty;
+  local out=$(scp -o "StrictHostKeyChecking no" -i "$key" "$user@$intance_ip:$origin" "$destination")
+  echo "$out" > /dev/tty
+  return 0
+}

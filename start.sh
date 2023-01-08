@@ -1,8 +1,9 @@
 #!/bin/bash
 source ./sh/functions.sh
 
-STACK_NAME="test-stack-ab"
+mkdir -p sh/.tmp
 
+StackName=$(jq -r ".StackName" "config.json")
 UrlReposity=$(jq -r ".UrlReposity" "config.json")
 VpcId=$(jq -r ".VpcId" "config.json")
 SubnetId=$(jq -r ".SubnetId" "config.json")
@@ -21,21 +22,18 @@ echo "My public IP $MyIp"
 ## Infraestructura
 
 aws cloudformation deploy \
-    --stack-name $STACK_NAME \
+    --stack-name $StackName \
     --template-file ./infrastructure.yml \
     --region us-east-1 \
     --parameter-overrides UrlReposity="$UrlReposity" MyIp="$MyIp" CidrSubnet="$CidrSubnet" VpcId="$VpcId" SubnetId="$SubnetId" \
         InstanceType="$InstanceType" ImageId="$ImageId" User="$User" KeyName="$KeyName"
 
 
-outputs=$(aws cloudformation describe-stacks --stack-name $STACK_NAME | jq '{Outputs: .Stacks[].Outputs}')
+outputs=$(aws cloudformation describe-stacks --stack-name $StackName | jq '{Outputs: .Stacks[].Outputs}')
 
 app_ip=$(echo $outputs | jq -r '.Outputs[] | select(.OutputKey == "PublicIPApp") | .OutputValue')
-app_private_ip=$(echo $outputs | jq -r '.Outputs[] | select(.OutputKey == "PrivateIPApp") | .OutputValue')
 latency_ip=$(echo $outputs | jq -r '.Outputs[] | select(.OutputKey == "PublicIPLatency") | .OutputValue')
-latency_private_ip=$(echo $outputs | jq -r '.Outputs[] | select(.OutputKey == "PrivateIPLatency") | .OutputValue')
 db_ip=$(echo $outputs | jq -r '.Outputs[] | select(.OutputKey == "PublicIPDB") | .OutputValue')
-db_private_ip=$(echo $outputs | jq -r '.Outputs[] | select(.OutputKey == "PrivateIPDB") | .OutputValue')
 
 ## DB
 wait_initialized $db_ip $User $Key

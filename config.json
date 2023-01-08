@@ -1,4 +1,5 @@
 {
+    "StackName": "test-stack-ab",
     "UrlReposity": "https://github.com/maocq/virtual-threads-benchmark-t",
     "VpcId": "vpc-0e4be5df9e95671aa",
     "SubnetId": "subnet-01c7c6eb4150116c4",
