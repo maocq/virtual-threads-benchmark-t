@@ -1,6 +1,9 @@
 #!/bin/bash
 
-StackName=$(jq -r ".StackName" "config.json")
+#case=$1
+case="go-ms"
+
+StackName=$(jq -r ".StackName" "config.json")-$case
 
 
 #aws cloudformation describe-stacks --stack-name $StackName

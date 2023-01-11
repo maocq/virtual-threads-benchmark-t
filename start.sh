@@ -1,9 +1,12 @@
 #!/bin/bash
 source ./sh/functions.sh
 
+#case=$1
+case="go-ms"
+
 mkdir -p sh/.tmp
 
-StackName=$(jq -r ".StackName" "config.json")
+StackName=$(jq -r ".StackName" "config.json")-$case
 UrlReposity=$(jq -r ".UrlReposity" "config.json")
 VpcId=$(jq -r ".VpcId" "config.json")
 SubnetId=$(jq -r ".SubnetId" "config.json")
@@ -36,8 +39,8 @@ latency_ip=$(echo $outputs | jq -r '.Outputs[] | select(.OutputKey == "PublicIPL
 db_ip=$(echo $outputs | jq -r '.Outputs[] | select(.OutputKey == "PublicIPDB") | .OutputValue')
 
 ## DB
-wait_initialized $db_ip $User $Key
-start_docker_image $db_ip $UrlReposity "db" $User $Key
+#wait_initialized $db_ip $User $Key
+#start_docker_image $db_ip $UrlReposity "db" $User $Key
 
 ## Latency
 wait_initialized $latency_ip $User $Key
@@ -45,7 +48,7 @@ start_docker_image $latency_ip $UrlReposity "node" $User $Key
 
 ## App
 wait_initialized $app_ip $User $Key
-start_docker_image $app_ip $UrlReposity "go-ms" $User $Key
+start_docker_image $app_ip $UrlReposity $case $User $Key
 
 echo "\n\n App"
 echo "ssh -o \"StrictHostKeyChecking no\" -i "$Key" $User@$app_ip" > /dev/tty
