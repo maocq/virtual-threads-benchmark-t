@@ -28,9 +28,8 @@ wait_initialized() {
 #######################################
 update_repository() {
   local instance_ip=$1
-  local url_reposity=$2
-  local user=$3
-  local key=$4
+  local user=$2
+  local key=$3
 
   local cmd="cd app; git checkout . && git pull;"
 
@@ -45,13 +44,13 @@ update_repository() {
 #######################################
 start_docker_image() {
   local instance_ip=$1
-  local url_reposity=$2
-	local folder=$3
-	local user=$4
-	local key=$5
+	local folder=$2
+	local user=$3
+	local key=$4
 
-	execute_remote_command "bash app/sh/start_docker_image.sh $folder" "$instance_ip" "$user" "$key" > /dev/tty
-	return 0;
+  execute_remote_command "cd app; git checkout . && git pull;" "$instance_ip" "$user" "$key"
+	execute_remote_command "bash app/sh/start_docker_image.sh $folder" "$instance_ip" "$user" "$key" > /dev/tty 
+  return 0;
 }
 
 #######################################

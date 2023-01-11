@@ -39,16 +39,16 @@ latency_ip=$(echo $outputs | jq -r '.Outputs[] | select(.OutputKey == "PublicIPL
 db_ip=$(echo $outputs | jq -r '.Outputs[] | select(.OutputKey == "PublicIPDB") | .OutputValue')
 
 ## DB
-#wait_initialized $db_ip $User $Key
-#start_docker_image $db_ip $UrlReposity "db" $User $Key
+wait_initialized $db_ip $User $Key
+start_docker_image $db_ip "db" $User $Key
 
 ## Latency
 wait_initialized $latency_ip $User $Key
-start_docker_image $latency_ip $UrlReposity "node" $User $Key
+start_docker_image $latency_ip "node" $User $Key
 
 ## App
 wait_initialized $app_ip $User $Key
-start_docker_image $app_ip $UrlReposity $case $User $Key
+start_docker_image $app_ip $case $User $Key
 
 echo "\n\n App"
 echo "ssh -o \"StrictHostKeyChecking no\" -i "$Key" $User@$app_ip" > /dev/tty
