@@ -8,9 +8,9 @@ config :perf_analyzer,
     body: ""
   },
   execution: %{
-    steps: 30,
-    increment: 100,
-    duration: 2000,
+    steps: 10,
+    increment: 500,
+    duration: 1000,
     constant_load: false,
     dataset: :none,
     separator: ","

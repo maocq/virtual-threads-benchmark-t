@@ -17,7 +17,8 @@ tests_ip=$(echo $outputs | jq -r '.Outputs[] | select(.OutputKey == "PublicIPTes
 
 scenarios=(
     "hello"
-    #"case-one?latency=50"
+    "case-one"
+    "case-one?latency=50"
 )
 
 
