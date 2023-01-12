@@ -22,22 +22,6 @@ wait_initialized() {
 }
 
 #######################################
-# ARGUMENTS: (instance_ip, url_reposity, user, key)
-# OUTPUTS:
-# RETURN: 0, Non-zero on error.
-#######################################
-update_repository() {
-  local instance_ip=$1
-  local user=$2
-  local key=$3
-
-  local cmd="cd app; git checkout . && git pull;"
-
-  local out=$(execute_remote_command "$cmd" "$instance_ip" $user $key)
-  return 0;
-}
-
-#######################################
 # ARGUMENTS: (folder, url_reposity, instance_ip, user, key)
 # OUTPUTS:
 # RETURN: 0, Non-zero on error.
