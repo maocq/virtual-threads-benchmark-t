@@ -10,6 +10,7 @@ import org.springframework.http.client.reactive.ClientHttpConnector;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.netty.http.client.HttpClient;
+import reactor.netty.resources.ConnectionProvider;
 
 import static io.netty.channel.ChannelOption.CONNECT_TIMEOUT_MILLIS;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
@@ -27,20 +28,21 @@ public class RestConsumerConfig {
         return WebClient.builder()
                 .baseUrl(url)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, "application/json")
-                //.clientConnector(getClientHttpConnector())
+                .clientConnector(getClientHttpConnector())
                 .build();
     }
 
     private ClientHttpConnector getClientHttpConnector() {
-        /*
-        IF YO REQUIRE APPEND SSL CERTIFICATE SELF SIGNED
-        SslContext sslContext = SslContextBuilder.forClient().trustManager(InsecureTrustManagerFactory.INSTANCE)
-                .build();*/
-        return new ReactorClientHttpConnector(HttpClient.create()
+        ConnectionProvider provider =
+                ConnectionProvider.builder("custom")
+                        .maxConnections(500)
+                        .pendingAcquireMaxCount(-1)
+                        .build();
+
+        return new ReactorClientHttpConnector(HttpClient.create(provider)
                 //.secure(sslContextSpec -> sslContextSpec.sslContext(sslContext))
                 .compress(true)
                 .keepAlive(true)
-                .protocol()
                 .option(CONNECT_TIMEOUT_MILLIS, timeout)
                 .doOnConnected(connection -> {
                     connection.addHandlerLast(new ReadTimeoutHandler(timeout, MILLISECONDS));
