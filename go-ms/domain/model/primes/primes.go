@@ -1,11 +1,8 @@
-package usecase
+package primes
 
 import "strconv"
 
-type GetPrimesUseCase struct {
-}
-
-func (p *GetPrimesUseCase) Primes(n int) string {
+func Primes(n int) string {
 	return SieveOfEratosthenes(n)
 }
 

@@ -4,34 +4,15 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
+	"time"
 )
-
-func InitDB() *gorm.DB {
-	ip := GetEnvOrDefault("DB_IP", "localhost")
-	url := fmt.Sprintf("postgres://compose-postgres:compose-postgres@%s:5432/compose-postgres", ip)
-	db, err := gorm.Open(postgres.Open(url), &gorm.Config{})
-	if err != nil {
-		panic(err)
-	}
-
-	dbConfig, err := db.DB()
-	if err != nil {
-		panic(err)
-	}
-	dbConfig.SetMaxIdleConns(10)
-	dbConfig.SetMaxOpenConns(10)
-
-	return db
-}
 
 func GetHttpClient() *http.Client {
 	t := http.DefaultTransport.(*http.Transport).Clone()
 	t.MaxIdleConns = 500
 	t.MaxConnsPerHost = 500
 	t.MaxIdleConnsPerHost = 500
+	t.IdleConnTimeout = 90 * time.Second
 
 	return &http.Client{
 		Transport: t,
