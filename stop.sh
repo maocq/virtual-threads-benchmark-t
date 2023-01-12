@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#case=$1
-case="go-ms"
+case=$1
+#case="java-native-ms"
 
 StackName=$(jq -r ".StackName" "config.json")-$case
 

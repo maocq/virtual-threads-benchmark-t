@@ -1,8 +1,8 @@
 #!/bin/bash
 source ./sh/functions.sh
 
-#case=$1
-case="go-ms"
+case=$1
+#case="java-native-ms"
 
 StackName=$(jq -r ".StackName" "config.json")-$case
 User=$(jq -r ".User" "config.json")
