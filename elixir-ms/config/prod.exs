@@ -12,4 +12,4 @@ config :elixir_ms,
        custom_metrics_prefix_name: "elixir_ms_local"
 
 config :logger,
-       level: :debug
+       level: :error
