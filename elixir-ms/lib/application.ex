@@ -32,7 +32,7 @@ defmodule ElixirMs.Application do
 
   #def env_children(:test), do: []
 
-  def env_children(_other_env) do
+  def env_children() do
     [
 			{Finch, name: HttpFinch, pools: %{:default => [size: 500]}},]
   end
