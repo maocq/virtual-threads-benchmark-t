@@ -11,7 +11,7 @@ defmodule ElixirMs.Application do
 
     CertificatesAdmin.setup()
 
-    children = with_plug_server(config) ++ all_env_children() ++ env_children(Mix.env())
+    children = with_plug_server(config) ++ all_env_children() ++ env_children()
 
     opts = [strategy: :one_for_one, name: ElixirMs.Supervisor]
     Supervisor.start_link(children, opts)
@@ -31,6 +31,7 @@ defmodule ElixirMs.Application do
   end
 
   #def env_children(:test), do: []
+
   def env_children(_other_env) do
     [
 			{Finch, name: HttpFinch, pools: %{:default => [size: 500]}},]
