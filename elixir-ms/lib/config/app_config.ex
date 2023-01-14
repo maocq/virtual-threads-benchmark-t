@@ -12,7 +12,7 @@ defmodule ElixirMs.Config.AppConfig do
 
    def load_config do
      %__MODULE__{
-       external_service_ip: load(:external_service_ip),
+       external_service_ip: System.get_env("LATENCY_IP") || "localhost",
        enable_server: load(:enable_server),
        http_port: load(:http_port)
      }
