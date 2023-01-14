@@ -5,7 +5,7 @@ defmodule ElixirMs.Infrastructure.Adapters.RestConsumer.Rest.RestAdapter do
 
   def hello(latency) do
     %{ external_service_ip: external_service_ip } = ConfigHolder.conf()
-    url = "http://#{external_service_ip}:3100/#{latency}"
+    url = "http://#{external_service_ip}:8080/#{latency}"
 
     case Finch.build(:get, url) |> Finch.request(HttpFinch) do
       {:ok, %Finch.Response{body: body}} -> {:ok, body}
