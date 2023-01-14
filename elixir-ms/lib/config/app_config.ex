@@ -5,12 +5,14 @@ defmodule ElixirMs.Config.AppConfig do
   """
 
    defstruct [
+     :external_service_ip,
      :enable_server,
      :http_port
    ]
 
    def load_config do
      %__MODULE__{
+       external_service_ip: load(:external_service_ip),
        enable_server: load(:enable_server),
        http_port: load(:http_port)
      }

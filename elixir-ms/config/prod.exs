@@ -13,3 +13,9 @@ config :elixir_ms,
 
 config :logger,
        level: :error
+
+config :elixir_ms,
+       external_service_ip: System.get_env("LATENCY_IP") || "localhost"
+
+config :elixir_ms,
+       hello_gateway: ElixirMs.Infrastructure.Adapters.RestConsumer.Rest.RestAdapter
