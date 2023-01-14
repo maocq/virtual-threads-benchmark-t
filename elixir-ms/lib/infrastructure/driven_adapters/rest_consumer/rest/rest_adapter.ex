@@ -1,6 +1,7 @@
 defmodule ElixirMs.Infrastructure.Adapters.RestConsumer.Rest.RestAdapter do
   alias ElixirMs.Config.ConfigHolder
-  #alias ElixirMs.Domain.Model.Rest
+
+  @behaviour ElixirMs.Domain.Behaviours.HelloBehaviour
 
   def hello(latency) do
     %{ external_service_ip: external_service_ip } = ConfigHolder.conf()
