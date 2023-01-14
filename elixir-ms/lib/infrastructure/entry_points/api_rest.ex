@@ -1,8 +1,10 @@
 defmodule ElixirMs.Infrastructure.EntryPoint.ApiRest do
-
   @moduledoc """
   Access point to the rest exposed services
   """
+
+  alias ElixirMs.Domain.UseCase.CasesUseCase
+
   require Logger
 
   use Plug.Router
@@ -29,6 +31,33 @@ defmodule ElixirMs.Infrastructure.EntryPoint.ApiRest do
 
   get "/api/hello" do
     "Hello"
+    |> build_response(conn)
+  end
+
+  get "/api/case-one" do
+    latency = conn.query_params["latency"] || 0
+
+    case CasesUseCase.case_one(latency) do
+      {:ok, response} -> response |> build_response(conn)
+      {:error, error} ->
+        Logger.error("Error case one #{inspect(error)}")
+        build_response(%{status: 500, body: "Error"}, conn)
+    end
+  end
+
+  get "/api/case-two" do
+    latency = conn.query_params["latency"] || 0
+
+    case CasesUseCase.case_two(latency) do
+      {:ok, response} -> response |> build_response(conn)
+      {:error, error} ->
+        Logger.error("Error case two #{inspect(error)}")
+        build_response(%{status: 500, body: "Error"}, conn)
+    end
+  end
+
+  get "/api/case-three" do
+    CasesUseCase.case_three()
     |> build_response(conn)
   end
 
