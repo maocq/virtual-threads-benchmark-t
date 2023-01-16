@@ -17,10 +17,11 @@ tests_ip=$(echo $outputs | jq -r '.Outputs[] | select(.OutputKey == "PublicIPTes
 
 scenarios=(
     "hello"
-    #"case-one"
-    #"case-one?latency=50"
-    #"case-two"
-    #"case-three"
+    "case-one"
+    "case-one?latency=10"
+    "case-two?latency=10"
+    "case-two?latency=100"
+    "case-three"
 )
 
 
@@ -40,10 +41,10 @@ for scenario in "${scenarios[@]}"; do
 
     execute_remote_command "docker run --rm -v \$(pwd):/app/config bancolombia/distributed-performance-analyzer:0.3.0" "$tests_ip" "$User" "$Key" > /dev/tty
 
-    download_file $tests_ip "result.csv" "sh/.tmp/$scenario-$case.csv" $User $Key
+    download_file $tests_ip "result.csv" "sh/.tmp/$scenario|$case.csv" $User $Key
     echo "$case $scenario" > /dev/tty
     echo "http://$app_ip:8080/api/$scenario" > /dev/tty
-    cat ".tmp/$scenario-$case.csv" > /dev/tty
+    cat ".tmp/$scenario|$case.csv" > /dev/tty
 done
 
 echo "#################"
