@@ -11,11 +11,12 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>example-nima-blocking</artifactId>
+    <artifactId>java-helidon-nima</artifactId>
     <name>Helidon Nima Example</name>
 
     <properties>
-        <mainClass>com.maocq.helidon.nima.NimaMain</mainClass>
+        <!--<mainClass>com.maocq.helidon.nima.NimaMain</mainClass>-->
+        <mainClass>com.maocq.helidon.nima.application.Application</mainClass>
     </properties>
 
     <dependencies>

@@ -6,4 +6,4 @@ RUN mvn clean package
 FROM openjdk:19-jdk-slim
 WORKDIR /app
 COPY --from=build /app/nima/target ./
-ENTRYPOINT ["sh","-c","java --enable-preview -jar example-nima-blocking.jar"]
+ENTRYPOINT ["sh","-c","java --enable-preview -jar java-helidon-nima.jar"]
