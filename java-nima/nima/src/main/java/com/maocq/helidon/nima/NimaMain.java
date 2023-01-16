@@ -1,4 +1,4 @@
-package io.examples.helidon.nima;
+package com.maocq.helidon.nima;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -24,8 +24,8 @@ public class NimaMain {
                 .start();
 
         BlockingService.client(Http1Client.builder()
-                                       .baseUri("http://localhost:" + ws.port())
-                                       .build());
+                .baseUri("http://localhost:3100")
+                .build());
     }
 
     static void routing(HttpRouting.Builder rules) {

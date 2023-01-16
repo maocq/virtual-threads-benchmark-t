@@ -1,4 +1,4 @@
-package io.examples.helidon.nima;
+package com.maocq.helidon.nima;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
@@ -37,7 +37,7 @@ class BlockingService implements HttpService {
 
     private static String callRemote(Http1Client client) {
         return client.get()
-                .path("/remote")
+                .path("/10")
                 .request(String.class);
     }
 

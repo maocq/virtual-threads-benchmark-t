@@ -1,4 +1,4 @@
-package io.examples.helidon.nima;
+package com.maocq.helidon.nima;
 
 import io.helidon.nima.webclient.http1.Http1Client;
 import io.helidon.nima.webclient.http1.Http1ClientResponse;
