@@ -33,6 +33,7 @@ public class NimaMain {
                     res.header(SERVER);
                     chain.proceed();
                 })
+                .get("/api/hello", (req, res) -> res.send("Hello"))
                 .get("/remote", NimaMain::remote)
                 .register("/", new BlockingService());
     }
