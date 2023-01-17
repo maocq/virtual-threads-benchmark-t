@@ -10,7 +10,7 @@ config :perf_analyzer,
   execution: %{
     steps: 20,
     increment: 50,
-    duration: 1000,
+    duration: 2000,
     constant_load: false,
     dataset: :none,
     separator: ","
