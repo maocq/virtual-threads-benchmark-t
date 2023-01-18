@@ -13,41 +13,28 @@ app_ip=$(echo $outputs | jq -r '.Outputs[] | select(.OutputKey == "PublicIPApp")
 app_private_ip=$(echo $outputs | jq -r '.Outputs[] | select(.OutputKey == "PrivateIPApp") | .OutputValue')
 tests_ip=$(echo $outputs | jq -r '.Outputs[] | select(.OutputKey == "PublicIPTest") | .OutputValue')
 
+for FILE in test/performance-analyzer/*; do
+    name_file=$(basename $FILE);
+    scenario=$(basename -s .exs $FILE);
 
-
-scenarios=(
-    "hello"
-    "case-one"
-    "case-one?latency=10"
-    "case-two?latency=10"
-    "case-two?latency=100"
-    "case-three"
-)
-
-
-for scenario in "${scenarios[@]}"; do
     command="docker restart \$(docker ps -a -q)"
     execute_remote_command "$command" "$app_ip" "$User" "$Key" > /dev/tty
 
-    wait_http "http://$app_ip:8080/api/$scenario"
+    wait_http "http://$app_ip:8080/api/hello"
 
-    cp "test/performance-analyzer/performance.exs" "sh/.tmp/performance-$case.exs"
-    sed -i -e "s/_IP_/$app_private_ip/g" -e "s/_SCENARIO_/$scenario/g" "sh/.tmp/performance-$case.exs"
-    upload_file $tests_ip "sh/.tmp/performance-$case.exs" "performance.exs" $User $Key
+    cp $FILE "sh/.tmp/$name_file"
+    sed -i -e "s/_IP_/$app_private_ip/g" "sh/.tmp/$name_file"
+    upload_file $tests_ip "sh/.tmp/$name_file" "performance.exs" $User $Key
 
-    rm -f "sh/.tmp/$scenario-$case.csv"
-    out=$(execute_remote_command "rm -f result.csv" "$tests_ip" "$User" "$Key")
-
-
+    _out=$(execute_remote_command "rm -f result.csv" "$tests_ip" "$User" "$Key")
     execute_remote_command "docker run --rm -v \$(pwd):/app/config bancolombia/distributed-performance-analyzer:0.3.0" "$tests_ip" "$User" "$Key" > /dev/tty
 
-    download_file $tests_ip "result.csv" "sh/.tmp/$scenario|$case.csv" $User $Key
+    download_file $tests_ip "result.csv" "sh/.tmp/r-$scenario|$case.csv" $User $Key
     echo "$case $scenario" > /dev/tty
     echo "http://$app_ip:8080/api/$scenario" > /dev/tty
-    cat ".tmp/$scenario|$case.csv" > /dev/tty
+    cat ".tmp/r-$scenario|$case.csv" > /dev/tty
 done
 
 echo "#################"
 echo "$case"
 echo "#################"
-
