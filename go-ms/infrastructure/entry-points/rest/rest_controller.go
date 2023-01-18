@@ -8,7 +8,7 @@ import (
 
 func Start(cases *usecase.CasesUseCase) {
 	router := gin.Default()
-	router.GET("/api/hello", func(c *gin.Context) { c.String(http.StatusOK, "Hello :)") })
+	router.GET("/api/hello", func(c *gin.Context) { c.String(http.StatusOK, "Hello") })
 
 	router.GET("/api/case-one", func(c *gin.Context) {
 		latency := c.DefaultQuery("latency", "0")
