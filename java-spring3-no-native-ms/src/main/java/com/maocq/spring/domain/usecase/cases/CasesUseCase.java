@@ -26,7 +26,6 @@ public class CasesUseCase {
 
     public Mono<String> caseThree(int n) {
         return Mono.defer(() -> Mono.just(Primes.primes(n)))
-                //.subscribeOn(Schedulers.fromExecutor(Application.cpuExecutor))
-                ;
+                .subscribeOn(Schedulers.fromExecutor(Application.cpuExecutor));
     }
 }
