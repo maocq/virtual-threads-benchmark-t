@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+
 project=$1
 docker stop "$(docker ps -q)"
 docker rm -f "$project"

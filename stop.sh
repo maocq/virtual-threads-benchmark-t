@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 case=$1
 #case="java-native-ms"

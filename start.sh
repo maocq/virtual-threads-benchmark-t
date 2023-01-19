@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 source ./sh/functions.sh
 
 case=$1
