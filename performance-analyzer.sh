@@ -23,9 +23,9 @@ for FILE in test/performance-analyzer/*; do
 
     wait_http "http://$app_ip:8080/api/hello"
 
-    cp $FILE "sh/.tmp/pt-$case-$name_file"
-    sed -i -e "s/_IP_/$app_private_ip/g" "sh/.tmp/pt-$case-$name_file"
-    upload_file $tests_ip "sh/.tmp/pt-$case-$name_file" "performance.exs" $User $Key
+    cp $FILE "sh/.tmp/p-$case-$name_file"
+    sed -i -e "s/_IP_/$app_private_ip/g" "sh/.tmp/p-$case-$name_file"
+    upload_file $tests_ip "sh/.tmp/p-$case-$name_file" "performance.exs" $User $Key
 
     echo "------>> $case $scenario" > /dev/tty
 
