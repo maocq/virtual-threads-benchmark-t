@@ -31,9 +31,7 @@ for FILE in test/performance-analyzer/*; do
     execute_remote_command "docker run --rm -v \$(pwd):/app/config bancolombia/distributed-performance-analyzer:0.3.0" "$tests_ip" "$User" "$Key" > /dev/tty
 
     download_file $tests_ip "result.csv" "sh/.tmp/r-$scenario|$case.csv" $User $Key
-    echo "$case $scenario" > /dev/tty
-    echo "http://$app_ip:8080/api/$scenario" > /dev/tty
-    cat ".tmp/r-$scenario|$case.csv" > /dev/tty
+    echo "-------> $case $scenario" > /dev/tty
 done
 
 echo "#################"
