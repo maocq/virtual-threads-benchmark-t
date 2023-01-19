@@ -27,6 +27,8 @@ for FILE in test/performance-analyzer/*; do
     sed -i -e "s/_IP_/$app_private_ip/g" "sh/.tmp/$name_file"
     upload_file $tests_ip "sh/.tmp/$name_file" "performance.exs" $User $Key
 
+    echo "------>> $case $scenario" > /dev/tty
+
     _out=$(execute_remote_command "rm -f result.csv" "$tests_ip" "$User" "$Key")
     execute_remote_command "docker run --rm -v \$(pwd):/app/config bancolombia/distributed-performance-analyzer:0.3.0" "$tests_ip" "$User" "$Key" > /dev/tty
 

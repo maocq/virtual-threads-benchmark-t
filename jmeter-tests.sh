@@ -27,6 +27,8 @@ for FILE in test/jmeter/*; do
     sed -i -e "s/_SERVICE_IP_/$app_private_ip/g" "sh/.tmp/jmeter-$name_file"
     upload_file $tests_ip "sh/.tmp/jmeter-$name_file" "JMeterBenchmark.jmx" $User $Key
 
+    echo "------>> $case $scenario" > /dev/tty
+
     _out=$(execute_remote_command "sudo rm -rf report && sudo rm -f result-jmeter.csv && mkdir -p report" "$tests_ip" "$User" "$Key")
     execute_remote_command "docker run --rm -i -v \${PWD}:\${PWD} -w \${PWD} justb4/jmeter:latest -n -t JMeterBenchmark.jmx -l result-jmeter.csv -e -o report" "$tests_ip" "$User" "$Key" > /dev/tty
     _out=$(execute_remote_command "tar -zcvf report.tar.gz report" "$tests_ip" "$User" "$Key")
