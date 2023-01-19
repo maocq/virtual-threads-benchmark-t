@@ -35,12 +35,14 @@ public class RestController {
     }
 
     private void caseOne(ServerRequest req, ServerResponse res) {
-        String response = cases.caseOne(0);
+        var latency = Integer.valueOf(req.query().first("latency").orElse("0"));
+        String response = cases.caseOne(latency);
         res.send(response);
     }
 
     private void caseTwo(ServerRequest req, ServerResponse res) {
-        String response = cases.caseTwo(0);
+        var latency = Integer.valueOf(req.query().first("latency").orElse("0"));
+        String response = cases.caseTwo(latency);
         res.send(response);
     }
 
