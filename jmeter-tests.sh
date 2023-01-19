@@ -23,9 +23,9 @@ for FILE in test/jmeter/*; do
 
     wait_http "http://$app_ip:8080/api/hello"
 
-    cp $FILE "sh/.tmp/jmeter-$name_file"
-    sed -i -e "s/_SERVICE_IP_/$app_private_ip/g" "sh/.tmp/jmeter-$name_file"
-    upload_file $tests_ip "sh/.tmp/jmeter-$name_file" "JMeterBenchmark.jmx" $User $Key
+    cp $FILE "sh/.tmp/jmeter-$case-$name_file"
+    sed -i -e "s/_SERVICE_IP_/$app_private_ip/g" "sh/.tmp/jmeter-$case-$name_file"
+    upload_file $tests_ip "sh/.tmp/jmeter-$case-$name_file" "JMeterBenchmark.jmx" $User $Key
 
     echo "------>> $case $scenario" > /dev/tty
 
