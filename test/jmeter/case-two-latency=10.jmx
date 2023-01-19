@@ -18,7 +18,7 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${HELLO_NUMBER_USERS}</stringProp>
+        <stringProp name="ThreadGroup.num_threads">${NUMBER_USERS}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${RAMP_UP_PERIOD_SECONDS}</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">${DURATION_SECONDS}</stringProp>
@@ -63,9 +63,9 @@
             <stringProp name="Argument.value">3</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="HELLO_NUMBER_USERS" elementType="Argument">
-            <stringProp name="Argument.name">HELLO_NUMBER_USERS</stringProp>
-            <stringProp name="Argument.value">1000</stringProp>
+          <elementProp name="NUMBER_USERS" elementType="Argument">
+            <stringProp name="Argument.name">NUMBER_USERS</stringProp>
+            <stringProp name="Argument.value">800</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
