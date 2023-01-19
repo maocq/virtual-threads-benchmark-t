@@ -1,7 +1,7 @@
 import Config
 
 config :perf_analyzer,
-  url: "http://_IP_:8080/api/case-two?latency=1000",
+  url: "http://_IP_:8080/api/case-two?latency=500",
   request: %{
     method: "GET",
     headers: [],
@@ -9,7 +9,7 @@ config :perf_analyzer,
   },
   execution: %{
     steps: 20,
-    increment: 50,
+    increment: 20,
     duration: 1000,
     constant_load: false,
     dataset: :none,
