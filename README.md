@@ -48,7 +48,9 @@ To run this project you need:
 ./start_all.sh
 ```
 
-### Case one
+## The following are the tested scenarios
+
+##### Case one
 
 ```mermaid
 sequenceDiagram
@@ -61,7 +63,7 @@ sequenceDiagram
     Application->>Client: Response
 ```
 
-### Case two
+##### Case two
 
 ```mermaid
 sequenceDiagram
@@ -73,7 +75,7 @@ sequenceDiagram
     Application->>Client: Response
 ```
 
-### Case three
+##### Case three
 
 ```mermaid
 sequenceDiagram
