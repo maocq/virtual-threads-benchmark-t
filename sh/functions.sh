@@ -64,7 +64,7 @@ wait_http() {
 
   echo "Waiting for http $url ..." > /dev/tty
 
-	while [[ $(curl -is $url | head -n 1) != *"200"* ]]; do
+	while [[ $(curl -is $url | head -n 1) == "" ]]; do
 	  echo "Waiting for $url, state: $(curl -is $url | head -n 1)" > /dev/tty
 	done
 	sleep 3

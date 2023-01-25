@@ -5,7 +5,6 @@ source ./sh/functions.sh
 case=$1
 #case="java-native-ms"
 
-mkdir -p sh/.tmp
 
 StackName=$(jq -r ".StackName" "config.json")-$case
 UrlReposity=$(jq -r ".UrlReposity" "config.json")

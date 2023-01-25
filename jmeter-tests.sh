@@ -5,6 +5,8 @@ source ./sh/functions.sh
 case=$1
 #case="java-native-ms"
 
+mkdir -p .tmp/results-jmeter .tmp/scenarios-jmeter
+
 StackName=$(jq -r ".StackName" "config.json")-$case
 User=$(jq -r ".User" "config.json")
 Key=$(jq -r ".Key" "config.json")
@@ -21,11 +23,11 @@ for FILE in test/jmeter/*; do
     command="docker restart \$(docker ps -a -q)"
     execute_remote_command "$command" "$app_ip" "$User" "$Key" > /dev/tty
 
-    wait_http "http://$app_ip:8080/api/hello"
+    wait_http "http://$app_ip:8080/"
 
-    cp $FILE "sh/.tmp/jmeter-$case-$name_file"
-    sed -i -e "s/_SERVICE_IP_/$app_private_ip/g" "sh/.tmp/jmeter-$case-$name_file"
-    upload_file $tests_ip "sh/.tmp/jmeter-$case-$name_file" "JMeterBenchmark.jmx" $User $Key
+    cp $FILE ".tmp/scenarios-jmeter/$case-$name_file"
+    sed -i -e "s/_SERVICE_IP_/$app_private_ip/g" ".tmp/scenarios-jmeter/$case-$name_file"
+    upload_file $tests_ip ".tmp/scenarios-jmeter/$case-$name_file" "JMeterBenchmark.jmx" $User $Key
 
     echo "------>> $case $scenario" > /dev/tty
 
@@ -33,7 +35,7 @@ for FILE in test/jmeter/*; do
     execute_remote_command "docker run --rm -i -v \${PWD}:\${PWD} -w \${PWD} justb4/jmeter:latest -n -t JMeterBenchmark.jmx -l result-jmeter.csv -e -o report" "$tests_ip" "$User" "$Key" > /dev/tty
     _out=$(execute_remote_command "tar -zcvf report.tar.gz report" "$tests_ip" "$User" "$Key")
 
-    download_file $tests_ip "report.tar.gz" "sh/.tmp/j-$scenario-$case.tar.gz" $User $Key
+    download_file $tests_ip "report.tar.gz" ".tmp/results-jmeter/$scenario-$case.tar.gz" $User $Key
     echo "-------> $case $scenario" > /dev/tty
 done
 
