@@ -48,7 +48,7 @@ To run this project you need:
 ./start_all.sh
 ```
 
-The following are the tested scenarios
+The following are the tested scenarios:
 
 ##### Case one
 
