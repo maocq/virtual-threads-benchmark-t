@@ -2,7 +2,7 @@
 
 ## About The Project
 
-The project objective is to allow executing repeatable performance tests in different technical stacks. This project is mainly designed to be executed on an AWS account, however the stacks scenarios are developed and designed to run in Docker
+The project objective is to allow executing repeatable performance tests in different technical stacks and validate the performance of applications based on virtual threads. This project is mainly designed to be executed on an AWS account, however the stacks scenarios are developed and designed to run in Docker
 
 ## Results
 
@@ -48,7 +48,7 @@ To run this project you need:
 ./start_all.sh
 ```
 
-## The following are the tested scenarios
+The following are the tested scenarios
 
 ##### Case one
 
