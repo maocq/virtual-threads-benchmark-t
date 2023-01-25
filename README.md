@@ -1,5 +1,7 @@
 # Benchmark
 
+![Throughput](/reports/throughput.png)
+
 ### Case one
 
 ```mermaid
