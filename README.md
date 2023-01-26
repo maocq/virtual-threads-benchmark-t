@@ -44,6 +44,17 @@ To run this project you need:
 
 ## Usage
 
+In the start_all.sh script you can change the stacks array what you want to run, this script will run the start.sh script with each stack.
+The start.sh script will create three instances, the first will be the instance where the stack will be deployed, the second will be an instance with an external service that will simulate latency, and the third will be the performance instance.
+
+The performance tool is the [distributed performance analyzer](https://github.com/bancolombia/distributed-performance-analyzer) project, also available as docker image at [dockerhub](https://hub.docker.com/repository/docker/bancolombia/distributed-performance-analyzer).
+
+Then it will run every scenario on the stack and will download the results in the .tmp/results folder.
+
+The results will be visualized as graphs.
+
+Run performance tests:
+
 ```shell
 ./start_all.sh
 ```
