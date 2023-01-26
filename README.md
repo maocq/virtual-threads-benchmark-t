@@ -51,8 +51,6 @@ The performance tool is the [distributed performance analyzer](https://github.co
 
 Then it will run every scenario on the stack and will download the results in the .tmp/results folder.
 
-The results will be visualized as graphs.
-
 Run performance tests:
 
 ```shell
